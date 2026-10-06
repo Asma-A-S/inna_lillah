@@ -1,7 +1,3 @@
-/* =====================================================================
-   SCRIPT — menu mobile, en-tête au scroll, formulaire, animations
-   ===================================================================== */
-
 // -- Année courante dans le footer
 document.getElementById("annee-courante").textContent =
 	new Date().getFullYear();
