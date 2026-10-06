@@ -64,11 +64,16 @@ h1,h2,h3,h4{
 }
 .eyebrow::before{
   content:"";
-  width:18px; height:1px;
+  width:18px; height:1px;         
   background:var(--or);
   display:inline-block;
-}
-
+}                                               
+.eyebrow::after{
+  content:"";
+  width:18px; height:1px;         
+  background:var(--or);
+  display:inline-block;
+}  
 /* =====================================================================
    2. SIGNATURE VISUELLE — motif "couronne d'étoiles"
    Élément décoratif ré-employé du logo (cercle d'étoiles dorées/argentées),
@@ -113,7 +118,7 @@ nav{
   align-items:center;
   justify-content:space-between;
   gap:1rem;
-  padding:.75rem 1.25rem;
+  padding:.0rem 1.25rem;
   background:var(--blanc-casse);
   box-shadow:var(--ombre);
   transition:padding var(--transition);
@@ -125,10 +130,11 @@ nav{
   gap:.65rem;
 }
 .brand img{
-  height:65px; width:65px;
+  height:100px; width:100px;
   border-radius:50%;
   background:var(--bleu-nuit); /* le logo garde son fond bleu nuit d'origine */
   padding:2px;
+  margin: -1px 0 -1px 0;
 }
 .brand-text{ line-height:1.1; }
 .brand-text .nom{
@@ -457,10 +463,16 @@ footer{
   .services-grid{ grid-template-columns:repeat(2,1fr); }
   .valeurs{ grid-template-columns:repeat(2,1fr); }
   .footer-grid{ grid-template-columns:repeat(2,1fr); }
+  
 }
-
+@media (max-width:640px){
+.brand img{
+    width: 65px;
+    height: 65px;
+  }
+}
 @media (min-width:1024px){
-  nav{ padding:1rem 2.5rem; }
+  nav{ padding:0rem 2.5rem; }
   .nav-links{
     position:static;
     flex-direction:row;
@@ -477,7 +489,121 @@ footer{
 
   .services-grid{ grid-template-columns:repeat(4,1fr); }
   .apropos-grid{ grid-template-columns:1.1fr 1fr; gap:4rem; }
-  .footer-grid{ grid-template-columns:1.4fr 1fr 1fr 1.2fr; }
+  .footer-grid{ grid-template-columns:1.4fr 1fr 1fr; }
   .footer-bottom{ flex-direction:row; justify-content:space-between; }
   .appel-flottant{ display:none; } /* la barre d'urgence fixe suffit sur desktop */
+}
+
+/* Lien de la page courante dans le menu */
+.nav-links a[aria-current="page"]::after{ width:100%; }
+
+/* Bandeau de titre */
+.page-hero{
+  position:relative;
+  background:linear-gradient(135deg, var(--bleu-nuit), var(--bleu-nuit-2));
+  color:var(--argent);
+  padding:3rem 0 3.2rem;
+  overflow:hidden;
+}
+.page-hero::before{ /* même filigrane d'étoiles que le héro */
+  content:"";
+  position:absolute; inset:0;
+  background-image:radial-gradient(rgba(201,164,99,.18) 1px, transparent 1px);
+  background-size:26px 26px;
+  opacity:.5;
+  pointer-events:none;
+}
+.page-hero-inner{ position:relative; max-width:780px; margin-inline:auto; }
+.page-hero h1{
+  color:var(--sable);
+  font-size:clamp(1.7rem, 5vw, 2.5rem);
+  margin-bottom:1rem;
+}
+.page-intro{ font-size:1.05rem; color:var(--argent); }
+
+.breadcrumb{ font-size:.82rem; letter-spacing:.03em; margin-bottom:1.2rem; color:var(--argent); }
+.breadcrumb a{ color:var(--or-clair); }
+.breadcrumb a:hover, .breadcrumb a:focus-visible{ text-decoration:underline; }
+.breadcrumb span{ margin:0 .35rem; opacity:.7; }
+
+/* Corps de page */
+.page-body{ background:var(--blanc-casse); padding:3.5rem 0 4.5rem; }
+.page-content{ max-width:780px; margin-inline:auto; }
+
+.page-content h2{
+  font-size:clamp(1.25rem, 3vw, 1.55rem);
+  margin:2.4rem 0 .9rem;
+  padding-left:.9rem;
+  border-left:3px solid var(--or);
+}
+.page-content h2:first-child{ margin-top:0; }
+.page-content p{ margin-bottom:1rem; }
+.page-content strong{ color:var(--bleu-nuit); font-weight:600; }
+
+.page-content ul{ list-style:none; margin:0 0 1.2rem; }
+.page-content li{ position:relative; padding-left:1.4rem; margin-bottom:.7rem; }
+.page-content li::before{
+  content:"";
+  position:absolute; left:0; top:.7em;
+  width:7px; height:7px;
+  background:var(--or);
+  transform:rotate(45deg);
+}
+
+.page-content a:not(.btn-primary){
+  color:var(--bleu-nuit-2);
+  text-decoration:underline;
+  text-decoration-color:var(--or);
+  text-underline-offset:3px;
+  transition:color var(--transition);
+}
+.page-content a:not(.btn-primary):hover,
+.page-content a:not(.btn-primary):focus-visible{ color:var(--or); }
+
+/* Bloc d'appel à l'action */
+.cta-box{
+  margin:3rem 0;
+  padding:2rem 1.5rem;
+  background:var(--bleu-nuit);
+  color:var(--argent);
+  border-radius:10px;
+  border-top:3px solid var(--or);
+  text-align:center;
+  box-shadow:var(--ombre);
+}
+.cta-box p{ margin-bottom:.8rem; }
+.page-content .cta-box strong, .cta-box .cta-titre{
+  display:block;
+  font-family:'Playfair Display', serif;
+  font-size:1.3rem;
+  color:var(--sable);
+}
+.cta-note{ font-size:.85rem; color:rgba(184,192,204,.8); margin:1rem 0 0 !important; }
+
+/* FAQ (accordéon <details>) */
+.faq-item{ border-bottom:1px solid var(--gris-clair); }
+.faq-item:first-of-type{ border-top:1px solid var(--gris-clair); }
+.faq-item summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex; justify-content:space-between; align-items:center; gap:1rem;
+  padding:1.1rem 0;
+  font-weight:600;
+  color:var(--bleu-nuit);
+}
+.faq-item summary::-webkit-details-marker{ display:none; }
+.faq-item summary::after{
+  content:"+";
+  flex-shrink:0;
+  font-size:1.5rem; line-height:1;
+  color:var(--or);
+  transition:transform var(--transition);
+}
+.faq-item[open] summary::after{ transform:rotate(45deg); }
+.faq-item summary:focus-visible{ outline:2px solid var(--or); outline-offset:3px; }
+.faq-item p{ padding:0 2rem 1.2rem 0; margin:0; }
+
+@media (min-width:1024px){
+  .page-hero{ padding:4.2rem 0 4.4rem; }
+  .page-body{ padding:4.5rem 0 5.5rem; }
 }
